@@ -23,7 +23,7 @@ function AnimatedDrone() {
   return (
     <div className="relative w-48 h-48 mx-auto">
       <Image
-        src="/drone-gif-256.gif"
+        src="../drone-gif-256.gif"
         alt="Animated drone"
         width={256}
         height={256}
