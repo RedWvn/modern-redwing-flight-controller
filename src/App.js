@@ -42,11 +42,11 @@ function StartPage() {
             Welcome to REDWING
           </h2>
           <p className="text-center mb-8 text-gray-600">
-            Next-gen pre-flight assistant for Fighter UAV G
+            Next-gen pre-flight assistant for Drones
           </p>
           <div className="mb-8 bg-gray-100 p-4 rounded-lg">
-            <p className="text-center text-gray-700 font-medium">Aircraft: Fighter UAV G</p>
-            <p className="text-center text-gray-700 font-medium">System ID: 37</p>
+            <p className="text-center text-gray-700 font-medium">Aircraft: Redwing Nimbi 3</p>
+            <p className="text-center text-gray-700 font-medium">System ID: 42</p>
           </div>
           {connectionState === 'idle' && (
             <button
