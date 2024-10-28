@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom'
-import { Plane, CheckCircle2, Wifi, Battery, Cpu, Sliders, Ruler } from 'lucide-react'
+import { Package, CheckCircle2, Wifi, Battery, Cpu, Sliders, Ruler, MapPin, Upload, PlayCircle } from 'lucide-react'
 
 function Header() {
   return (
@@ -36,10 +36,10 @@ function StartPage() {
         <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md transition-all duration-300 ease-in-out transform hover:scale-105">
           <div className="mb-8 relative">
             <div className="absolute inset-0 bg-blue-100 rounded-full opacity-20"></div>
-            <Plane className="w-32 h-32 mx-auto text-blue-600 relative z-10" />
+            <Package className="w-32 h-32 mx-auto text-blue-600 relative z-10" />
           </div>
           <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
-            Welcome to REDWING
+            Welcome to REDWING FC
           </h2>
           <p className="text-center mb-8 text-gray-600">
             Next-gen pre-flight assistant for Drones
@@ -66,10 +66,10 @@ function StartPage() {
             <>
               <p className="text-center text-green-500 mb-6 font-medium">Connected successfully</p>
               <button
-                onClick={() => navigate('/preflight-checks')}
+                onClick={() => navigate('/destination')}
                 className="w-full bg-green-500 text-white py-3 rounded-lg hover:bg-green-600 transition-colors duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50"
               >
-                Proceed to Pre-flight Checks
+                Proceed to Destination Selection
               </button>
             </>
           )}
@@ -79,59 +79,189 @@ function StartPage() {
   )
 }
 
-function PreFlightChecksPage() {
-  const [checks, setChecks] = useState([
-    { name: 'Auto Sensor Checks', icon: Cpu, status: 'pending' },
-    { name: 'Motor Checks', icon: Sliders, status: 'pending' },
-    { name: 'Servo Checks', icon: Sliders, status: 'pending' },
-    { name: 'Range-finder Check', icon: Ruler, status: 'pending' },
-    { name: 'Battery Check', icon: Battery, status: 'pending' },
-  ])
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setChecks(checks.map(check => ({ ...check, status: 'completed' })))
-    }, 2000)
-    return () => clearTimeout(timer)
-  }, [])
+function DestinationPage() {
+  const navigate = useNavigate()
+  const [destination, setDestination] = useState('')
+  const [takeoffDirection, setTakeoffDirection] = useState('')
+  const [landingZone, setLandingZone] = useState('')
+  const [approach, setApproach] = useState('')
 
   return (
     <div className="flex flex-col h-screen bg-gray-100">
       <Header />
       <main className="flex-1 p-6">
         <div className="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-          <h2 className="text-3xl font-bold mb-8 text-gray-800 text-center">Pre-flight Checks</h2>
-          {checks.map((check, index) => (
-            <div
-              key={index}
-              className={`mb-4 p-4 rounded-lg flex justify-between items-center transition-all duration-300 ease-in-out ${
-                check.status === 'completed' ? 'bg-green-100' : 'bg-gray-100'
-              }`}
+          <h2 className="text-3xl font-bold mb-8 text-gray-800 text-center">Select Flight Details</h2>
+          <div className="mb-6">
+            <p className="font-medium mb-2">Current landing zone: HQ Hub location 1</p>
+          </div>
+          <div className="mb-6">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="destination">
+              Select Destination
+            </label>
+            <select
+              id="destination"
+              value={destination}
+              onChange={(e) => setDestination(e.target.value)}
+              className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             >
-              <div className="flex items-center">
-                <check.icon className={`w-6 h-6 mr-4 ${
-                  check.status === 'completed' ? 'text-green-600' : 'text-gray-600'
-                }`} />
-                <span className={`font-medium ${
-                  check.status === 'completed' ? 'text-green-600' : 'text-gray-700'
-                }`}>{check.name}</span>
-              </div>
-              {check.status === 'completed' ? (
-                <CheckCircle2 className="w-6 h-6 text-green-500" />
-              ) : (
-                <div className="w-6 h-6 rounded-full border-2 border-gray-300 border-t-gray-600 animate-spin"></div>
-              )}
-            </div>
-          ))}
+              <option value="">Select...</option>
+              <option value="HQ Node">HQ Node</option>
+            </select>
+          </div>
+          <div className="mb-6">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="takeoffDirection">
+              Select Take-off Direction
+            </label>
+            <select
+              id="takeoffDirection"
+              value={takeoffDirection}
+              onChange={(e) => setTakeoffDirection(e.target.value)}
+              className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            >
+              <option value="">Select...</option>
+              <option value="18° [N]">18° [N]</option>
+            </select>
+          </div>
+          <div className="mb-6">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="landingZone">
+              Select Landing Zone
+            </label>
+            <select
+              id="landingZone"
+              value={landingZone}
+              onChange={(e) => setLandingZone(e.target.value)}
+              className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            >
+              <option value="">Select...</option>
+              <option value="HQ Node location 2">HQ Node location 2</option>
+            </select>
+          </div>
+          <div className="mb-6">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="approach">
+              Select Approach
+            </label>
+            <select
+              id="approach"
+              value={approach}
+              onChange={(e) => setApproach(e.target.value)}
+              className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            >
+              <option value="">Select...</option>
+              <option value="295° [NW]">295° [NW]</option>
+            </select>
+          </div>
           <button
-            className={`w-full mt-8 py-3 rounded-lg text-white font-medium transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-opacity-50 ${
-              checks.every(check => check.status === 'completed')
-                ? 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500'
-                : 'bg-gray-400 cursor-not-allowed'
-            }`}
-            disabled={!checks.every(check => check.status === 'completed')}
+            onClick={() => navigate('/upload-mission')}
+            className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
           >
-            {checks.every(check => check.status === 'completed') ? 'Launch Flight' : 'Checks in Progress...'}
+            Continue
+          </button>
+        </div>
+      </main>
+    </div>
+  )
+}
+
+function UploadMissionPage() {
+  const navigate = useNavigate()
+  const [isUploading, setIsUploading] = useState(false)
+
+  const handleUpload = () => {
+    setIsUploading(true)
+    setTimeout(() => {
+      setIsUploading(false)
+      navigate('/takeoff')
+    }, 2000)
+  }
+
+  return (
+    <div className="flex flex-col h-screen bg-gray-100">
+      <Header />
+      <main className="flex-1 p-6">
+        <div className="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
+          <h2 className="text-3xl font-bold mb-8 text-gray-800 text-center">Upload Mission</h2>
+          <div className="mb-6">
+            <p className="font-medium mb-2">Waypoint file name:</p>
+            <p className="text-gray-600">HQ_Hub_location1_to_HQ_Node_location2.waypoint</p>
+          </div>
+          <div className="mb-6">
+            <p className="font-medium mb-2">Destination Details:</p>
+            <p className="text-gray-600">HQ Node, 18°, HQ Node location 2</p>
+          </div>
+          <div className="mb-6">
+            <p className="font-medium mb-2">Recorded aircraft Heading:</p>
+            <p className="text-gray-600">27° | (2° - 38°)</p>
+          </div>
+          <button
+            onClick={handleUpload}
+            disabled={isUploading}
+            className={`w-full ${
+              isUploading ? 'bg-gray-400' : 'bg-blue-600 hover:bg-blue-700'
+            } text-white py-3 rounded-lg transition-colors duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50`}
+          >
+            {isUploading ? 'Uploading...' : 'Upload Mission'}
+          </button>
+        </div>
+      </main>
+    </div>
+  )
+}
+
+function TakeoffPage() {
+  const navigate = useNavigate()
+  const [countdown, setCountdown] = useState(10)
+  const [isLaunched, setIsLaunched] = useState(false)
+
+  useEffect(() => {
+    if (countdown > 0 && !isLaunched) {
+      const timer = setTimeout(() => setCountdown(countdown - 1), 1000)
+      return () => clearTimeout(timer)
+    } else if (countdown === 0 && !isLaunched) {
+      setIsLaunched(true)
+      setTimeout(() => navigate('/flight-success'), 2000)
+    }
+  }, [countdown, isLaunched, navigate])
+
+  return (
+    <div className="flex flex-col h-screen bg-gray-100">
+      <Header />
+      <main className="flex-1 p-6 flex items-center justify-center">
+        <div className="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-8 text-gray-800">Takeoff Sequence</h2>
+          {!isLaunched ? (
+            <>
+              <p className="text-6xl font-bold text-blue-600 mb-8">{countdown}</p>
+              <p className="text-xl text-gray-600">Preparing for takeoff...</p>
+            </>
+          ) : (
+            <>
+              <p className="text-4xl font-bold text-green-500 mb-8">Aircraft Launched!</p>
+              <p className="text-xl text-gray-600">Redirecting to flight status...</p>
+            </>
+          )}
+        </div>
+      </main>
+    </div>
+  )
+}
+
+function FlightSuccessPage() {
+  return (
+    <div className="flex flex-col h-screen bg-gray-100">
+      <Header />
+      <main className="flex-1 p-6 flex items-center justify-center">
+        <div className="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-8 text-gray-800">Flight Successful</h2>
+          <div className="text-6xl text-green-500 mb-8">
+            <CheckCircle2 className="inline-block" />
+          </div>
+          <p className="text-xl text-gray-600 mb-8">Your aircraft has successfully completed its mission.</p>
+          <button
+            onClick={() => window.location.href = '/'}
+            className="bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+          >
+            Return to Home
           </button>
         </div>
       </main>
@@ -144,7 +274,10 @@ export default function App() {
     <Router>
       <Routes>
         <Route path="/" element={<StartPage />} />
-        <Route path="/preflight-checks" element={<PreFlightChecksPage />} />
+        <Route path="/destination" element={<DestinationPage />} />
+        <Route path="/upload-mission" element={<UploadMissionPage />} />
+        <Route path="/takeoff" element={<TakeoffPage />} />
+        <Route path="/flight-success" element={<FlightSuccessPage />} />
       </Routes>
     </Router>
   )
