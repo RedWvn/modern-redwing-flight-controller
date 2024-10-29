@@ -358,7 +358,7 @@ function FlightSuccessPage() {
           <div className="text-6xl text-green-500 mb-8">
             <CheckCircle2 className="inline-block" />
           </div>
-          <p className="text-xl text-gray-600 mb-8">Your aircraft has successfully completed its mission.</p>
+          <p className="text-xl text-gray-600 mb-8">Your aircraft has been successfully launched</p>
           <button
             onClick={() => window.location.href = '/'}
             className="bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
