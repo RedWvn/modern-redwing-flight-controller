@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom'
-import { CheckCircle2, Wifi, Battery, Cpu, Sliders, Ruler, MapPin, Upload, PlayCircle } from 'lucide-react'
-import Image from 'next/image'
+import { Plane, RotateCw, CheckCircle2, Wifi, Battery, Cpu, Sliders, Ruler, MapPin, Upload, PlayCircle } from 'lucide-react'
 
 function Header() {
   return (
@@ -22,13 +21,11 @@ function Header() {
 function AnimatedDrone() {
   return (
     <div className="relative w-48 h-48 mx-auto">
-      <Image
-        src="../drone-gif-256.gif"
-        alt="Animated drone"
-        width={256}
-        height={256}
-        className="rounded-full object-cover"
-      />
+      <div className="absolute inset-0 flex items-center justify-center">
+        <Plane className="w-24 h-24 text-blue-600" />
+      </div>
+      <RotateCw className="w-48 h-48 text-blue-300 absolute animate-spin-slow" />
+      <div className="w-48 h-48 bg-blue-100 rounded-full opacity-20 animate-pulse"></div>
     </div>
   )
 }
@@ -51,14 +48,14 @@ function StartPage() {
         <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md transition-all duration-300 ease-in-out transform hover:scale-105">
           <AnimatedDrone />
           <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
-            Welcome to REDWING
+            Welcome to REDWING FC
           </h2>
           <p className="text-center mb-8 text-gray-600">
-            Next-gen pre-flight assistant for Fighter UAV G
+            Next-gen pre-flight assistant for Drones
           </p>
           <div className="mb-8 bg-gray-100 p-4 rounded-lg">
-            <p className="text-center text-gray-700 font-medium">Aircraft: Fighter UAV G</p>
-            <p className="text-center text-gray-700 font-medium">System ID: 37</p>
+            <p className="text-center text-gray-700 font-medium">Aircraft: Redwing Nimbi 3</p>
+            <p className="text-center text-gray-700 font-medium">System ID: 42</p>
           </div>
           {connectionState === 'idle' && (
             <button
@@ -90,7 +87,6 @@ function StartPage() {
     </div>
   )
 }
-
 
 function PreFlightChecksPage() {
   const [checks, setChecks] = useState([
@@ -308,6 +304,7 @@ function TakeoffPage() {
       <Header />
       <main className="flex-1 p-6 flex items-center justify-center">
         <div className="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto text-center">
+
 
           <h2 className="text-3xl font-bold mb-8 text-gray-800">Takeoff Sequence</h2>
           <div className="mb-8">
