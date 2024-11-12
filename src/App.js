@@ -23,7 +23,7 @@ function RedwingLogo() {
     <div className="relative w-48 h-48 mx-auto mb-8">
       <div className="absolute inset-0 flex items-center justify-center">
         <img
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Redwinglabs_straight_logo-ODee1xcdGaM5Qcaji9DKY7upkuii98.jpeg"
+          src="public/Redwing_logo.jpg"
           alt="Redwing Logo"
           className="w-full h-full object-contain"
         />
