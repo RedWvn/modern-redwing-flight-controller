@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom'
-import { CheckCircle2, Battery, Cpu, Sliders, Ruler, Wifi} from 'lucide-react'
+import { Plane, RotateCw, CheckCircle2, Wifi, Battery, Cpu, Sliders, Ruler, MapPin, Upload, PlayCircle } from 'lucide-react'
 
 function Header() {
   return (
@@ -105,7 +105,7 @@ function PreFlightChecksPage() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setChecks(prevChecks => prevChecks.map(check => ({ ...check, status: 'completed' })))
+      setChecks(checks.map(check => ({ ...check, status: 'completed' })))
     }, 2000)
     return () => clearTimeout(timer)
   }, [])
